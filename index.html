@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tag system in Vue</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <style type="text/css">
+    	body{
+    		max-width: 600px;
+    		margin: auto;
+    	}
+    	.ul-style{
+    	list-style: none;
+	    width: 50%;
+	    border: 2px solid #4fc08d;
+	    margin: 15px 0px;
+	    padding: 10px;
+	    border-radius: 5px;
+    	}
+    	.ul-style li{
+    		margin:5px;
+    		cursor: pointer;
+    	}
+    	.active{
+			background: #4fc08d;
+			color:white;
+		}
+    </style>
+</head>
+<body>
+	<div id="app">
+		<h1>Tag System with Vue.js</h1>
+		 <br>
+		<div class="input-group col-md-12">
+		  <hr>
+		  <input type="text" class="form-control" placeholder="Type your tags" @keyup="showSuggest()"  @keyup.down="chooseSuggest()">
+		</div>
+		<ul class="ul-style" :class={hidden:isHidden}>
+			<li v-for="item in tags" class="tags text-primary ">
+				{{item}}
+			</li>
+		</ul>
+
+	</div>
+<script type="text/javascript">
+	new Vue({
+		el:'#app',
+		data:{
+			tags: ['Html', 'Nodejs', 'React', 'Vue', 'Angular', 'Javascript', 'Wordpress', 'Nuxt', 'Native', 'Firebase','PHP', 'Laravel'],
+			isHidden:true,
+			arrow_position:0
+		},
+		methods:{
+			showSuggest(){
+				this.isHidden = false
+			},
+			chooseSuggest(){
+				_tags = document.getElementsByClassName('tags')
+				//detele class active
+				for (var i = 0; i < _tags.length; i++) {
+					if(_tags[i].classList.contains('active')){
+						_tags[i].classList.remove('active')
+
+					}
+				}
+				//add class active
+				_tags[this.arrow_position].className += 'active'
+				this.arrow_position ++
+			},
+
+		}
+	})
+</script>
+</body>
+</html>
+
+
